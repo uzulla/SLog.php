@@ -1,0 +1,28 @@
+{
+    "name": "uzulla/slog",
+    "description": "Singleton and Simple, PSR-3 Logger Container",
+    "keywords": ["log", "psr-3"],
+    "type": "library",
+    "homepage": "https://github.com/uzulla/SLog.php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Junichi Ishida aka uzulla",
+            "email": "uzulla@himitsukichi.com",
+            "homepage": "http://twitter.com/uzulla/"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "monolog/monolog": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "psr/log": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Uzulla\\SLog": "lib/"
+        }
+    }
+}
