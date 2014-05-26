@@ -1,14 +1,14 @@
 <?php
 /*
  * Singleton and Simple, PSR-3 Logger Container
+ * Author: uzulla <uzulla@himitsukichi.com>
+ * Site: https://github.com/uzulla/SLog.php
+ * License: MIT
  */
 namespace Uzulla;
 
-use Monolog\Logger;
-use Monolog\Handler;
-
-// TODO Monolog依存ではなく、PSR-3のロガーに対応と書き直す
-// TODO stderr出力のロガーを自前でPSR-3対応の簡単な奴を書く
+use \Uzulla\SLog\SimpleLogger as Logger;
+use \Psr\Log\LoggerInterface;
 class SLog
 {
     static $logger = [];
@@ -16,10 +16,10 @@ class SLog
     static $strict = false;
 
     /**
-     * @param String $logger_name
-     * @param \Monolog\Logger $logger
+     * @param string $logger_name
+     * @param \Psr\Log\LoggerInterface $logger
      */
-    static public function setLogger($logger_name = null, \Monolog\Logger $logger = null)
+    static public function setLogger($logger_name = null, LoggerInterface $logger = null)
     {
         if (is_null($logger_name))
             $logger_name = static::$default_name;
@@ -27,8 +27,8 @@ class SLog
     }
 
     /**
-     * @param null $logger_name
-     * @return \Monolog\Logger
+     * @param string $logger_name
+     * @return \Psr\Log\LoggerInterface
      * @throws \Exception
      */
     static public function getLogger($logger_name = null)
@@ -40,12 +40,8 @@ class SLog
             if (static::$strict) // 未定義ログを怒るモード
                 throw new \Exception('Request not exists logger');
 
-            // とりあえずstderrに出力するmonologを返す簡単便利機能
-            $log = new Logger($logger_name);
-            $log->pushHandler(
-                new Handler\StreamHandler("php://stderr", Logger::DEBUG)
-            );
-            static::$logger[$logger_name] = $log;
+            // とりあえずstderrに出力するシンプルロガーをアタッチする
+            static::$logger[$logger_name] = new Logger();
         }
         return static::$logger[$logger_name];
     }

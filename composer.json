@@ -14,11 +14,10 @@
     ],
     "require": {
         "php": ">=5.4",
-        "monolog/monolog": "*"
+        "psr/log": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "psr/log": "dev-master"
+        "phpunit/phpunit": "*"
     },
     "autoload": {
         "psr-0": {
