@@ -92,7 +92,7 @@ class SimpleLogger implements LoggerInterface {
         if(!isset(static::$levels[$level]))
             throw new \InvalidArgumentException('Unknown log level');
 
-        if($this->level >= $level)
+        if($this->level > $level)
             return;
 
         $level_str = static::$levels[$level];
